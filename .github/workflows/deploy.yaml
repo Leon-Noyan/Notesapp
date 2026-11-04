@@ -8,6 +8,9 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
 
+        env:
+            MONGO_URI: ${{ secret.MONGO_URI }}
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
