@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 interface ListFeatureProps {
     title: string
     previewText: string

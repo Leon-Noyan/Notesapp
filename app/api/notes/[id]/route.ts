@@ -58,7 +58,7 @@ export async function GET(request: Request, { params }: Params) {
         }
       }
 
-async function DELETE(request: Request, { params }: Params) {
+export async function DELETE(request: Request, { params }: Params) {
   try {
     await connectDB()
     const deletedNote = await Note.findByIdAndDelete((await params).id)

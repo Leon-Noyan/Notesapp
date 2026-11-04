@@ -1,6 +1,6 @@
 import { connectDB } from '@/lib/mongodb'
 import Note from '@/models/Notes'
-import Link from 'next/link'
+import { CreateNote } from './components/CreateNote'
 import { ListFeature } from './components/List'
 
 export default async function Home() {
@@ -18,6 +18,7 @@ export default async function Home() {
                     {notes.length}
                 </span>
             </header>
+            <CreateNote />
             {/* List Container */}
             {notes.length === 0 ? (
                 <p className="text-center text-sm text-neutral-500">
@@ -31,6 +32,7 @@ export default async function Home() {
                             id={note._id.toString()}
                             title={note.title}
                             previewText={note.text || 'No content'}
+                            
                         />
                     ))}
                 </div>
