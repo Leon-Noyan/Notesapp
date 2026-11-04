@@ -3,6 +3,8 @@ import Note from '@/models/Notes'
 import { CreateNote } from './components/CreateNote'
 import { ListFeature } from './components/List'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
     await connectDB()
     const notes = await Note.find().sort({ createdAt: -1 }).lean()
@@ -32,7 +34,7 @@ export default async function Home() {
                             id={note._id.toString()}
                             title={note.title}
                             previewText={note.text || 'No content'}
-                            
+
                         />
                     ))}
                 </div>
