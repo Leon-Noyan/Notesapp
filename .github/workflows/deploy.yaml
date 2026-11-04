@@ -10,6 +10,7 @@ jobs:
 
         env:
             MONGO_URI: ${{ secrets.MONGO_URI }}
+            RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
         steps:
             - name: Checkout code
