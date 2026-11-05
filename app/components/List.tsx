@@ -9,8 +9,8 @@ interface ListFeatureProps {
 export function ListFeature({ title, previewText, id }: ListFeatureProps) {
     return (
         <Link href={`/notes/${id}`} className="group">
-            <div className=" group flex cursor-pointer items-baseline justify-between gap-6 py-4 px-3 transition-colors hover:bg-neutral-50 rounded-lg">
-                <h3 className="shrink-0 font-medium text-neutral-900 group-hover:text-neutral-700">
+            <div className=" group flex cursor-pointer items-baseline justify-between gap-6 py-4 px-3 transition-colors rounded-lg">
+                <h3 className="shrink-0 font-medium text-neutral-900 group-hover:text-amber-800">
                     {title}
                 </h3>
                 <p className="flex-1 truncate text-right text-sm text-neutral-500 ">

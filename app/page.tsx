@@ -5,22 +5,40 @@ import { ListFeature } from './components/List'
 
 export const dynamic = 'force-dynamic'
 
+interface NoteItems {
+  id: string
+  title: string
+  text?: string
+}
+
 export default async function Home() {
     await connectDB()
-    const notes = await Note.find().sort({ createdAt: -1 }).lean()
+    const notesRaw = await Note.find().sort({ createdAt: -1 }).lean()
+
+    const notes: NoteItems[] = notesRaw.map((note) => ({
+        id: note._id.toString(),
+        title: note.title,
+        text: note.text || ''
+    }))
 
     return (
-        <main className="mx-auto min-h-screen max-w-2xl px-6 py-12">
-            <header className="mb-8 flex items-center justify-between border-b border-neutral-200 pb-4">
-                <h1 className="text-2xl font-bold text-neutral-900">
+        <main className="mx-auto max-w-4xl w-full px-8 py-16">
+            <header className="mb-12 flex items-center justify-between border-b border-neutral-200/60 pb-6">
+              <div>
+                <h1 className="font-serif text-4xl text-neutral-900">
                     Notes App
                 </h1>
 
-                <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 text-xs font-semibold text-neutral-600">
-                    {notes.length}
-                </span>
+                <p className="text-sm text-neutral-500 mt-1">
+                    {notes.length} notes
+                </p>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <CreateNote />
+              </div>
             </header>
-            <CreateNote />
+
             {/* List Container */}
             {notes.length === 0 ? (
                 <p className="text-center text-sm text-neutral-500">
@@ -30,8 +48,8 @@ export default async function Home() {
                 <div className="divide-y divide-neutral-100">
                     {notes.map((note) => (
                         <ListFeature
-                            key={note._id.toString()}
-                            id={note._id.toString()}
+                            key={note.id}
+                            id={note.id}
                             title={note.title}
                             previewText={note.text || 'No content'}
 

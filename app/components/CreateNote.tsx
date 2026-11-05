@@ -36,7 +36,7 @@ export function CreateNote() {
 
   return (
     <>
-    <button onClick={() => setIsOpen(true)} className="rounded-xl bg-amber-800 p-1.5 m-1 text-white cursor-pointer">Create</button>
+    <button onClick={() => setIsOpen(true)} className="rounded-xl bg-amber-700 p-1.5 m-1 text-white cursor-pointer">Create Note</button>
 
     {isOpen && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

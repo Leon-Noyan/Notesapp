@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+Kort beskrivning av applikationen.
+ ## App
+ Detta är en enkel anteckningsapp, applikationen består av två routes/ sidor där användaren kan skapa anteckningar, radera, uppdatera och läsa dem. Applikationen har alltså en enkel CRUD.
 
-First, run the development server:
+ ## Ramverk
+Val av ramverk och motivering.
+Applikationen använder sig av next.js
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ ## Intrsuktioner lokalt
+Instruktioner för att starta applikationen lokalt.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ ## Instruktioner Docker-container
+Instruktioner för att bygga och köra Docker-containern.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ ## Miljöveriabler & hemlighetshantering
+Beskrivning av miljövariabler och hemlighetshantering.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ ## Loggning & health
+Beskrivning av loggning och health check.
 
-## Learn More
+ ## Github actions
+Beskrivning av GitHub Actions-workflowen.
 
-To learn more about Next.js, take a look at the following resources:
+ ## Render-driftsättning
+Förklaring av hur Render-driftsättningen fungerar.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ ## Kostnadsmedveten drift
+Svar på frågorna om kostnadsmedveten drift.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ ## Länkar
+Länk till den driftsatta applikationen.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Vilken Render-plan använder du?
+
+Jag använder free planen.
+
+Varför har du valt den?
+
+Jag valde free planen då den är tillräcklig för ett litet skol projekt. Sidan har inte någon hög trafik för att uppgradera till en högre plan med starkare CPU.
+
+Vilka faktorer påverkar kostnaden för att driva applikationen?
+
+Det finns flera faktorer som exempelvis trafiken då den påverkar mängden bandwidth som platformen kräver, CPU och RAM är även stora faktorer. Här behöver vi kika på hur mycket dator kraft servern behöver för att rulla smidigt. Vill man att servern ska hålla sig vaken i render så kostar det också då servern i gratisversionen endast går igång när man besöker den.
+
+Hur kan du minska applikationens resursanvändning?
+
+Vi kan använda cache för att minska databas anroppen, vi kan även optimera koden med server components samt hur vi gör databas anrop.
+
+Vilka begränsningar har din nuvarande driftlösning?
+
+Den nuvarande driftlösningen orsakar att servern sover och endast startar vid besök, den är heller inte väldigt kraftfull när det gäller saker som CPU. Och eftersom att det är render så är det en server som vi lånar/ hyr så vi har inte full frihet att sätta upp servern exakt hur som helst.
+
+Vad skulle du behöva förändra om applikationen fick betydligt fler användare?
+
+Om applikationen fick fler användare skulle jag behöva uppgradera planen. Innan jag uppgraderar hade jag dock kikat i analytics/ monitorerat för att se vilken plan som hade passat bäst så att jag inte överskjuter.
