@@ -66,7 +66,6 @@ export function CreateNote() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 className="w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
-                required
                 placeholder="Enter note text..."
               />
             </div>
