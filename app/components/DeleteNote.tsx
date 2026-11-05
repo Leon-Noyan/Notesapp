@@ -36,7 +36,7 @@ export default function DeleteNote({ id }: DeleteNoteProps) {
         <button
             onClick={handleDeleteNote}
             disabled={isdeleting}
-            className="rounded-xl bg-red-800 p-1.5 m-1 text-white cursor-pointer"
+            className="rounded-xl bg-amber-800 hover:bg-amber-700 p-1.5 m-1 text-white cursor-pointer"
         >
             {isdeleting ? 'Deleting...' : 'Delete'}
         </button>

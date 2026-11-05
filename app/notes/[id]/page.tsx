@@ -19,7 +19,7 @@ export default async function NotePage({ params }: NotePageProps) {
     }
 
     return (
-        <main className="mx-auto min-h-screen max-w-2xl px-6 py-12">
+        <main className="mx-auto min-h-screen max-w-2xl w-full px-6 py-12">
             <div className="flex justify-between items-center mb-12 text-xs tracking-wider uppercase text-neutral-400 font-medium">
                 <Link
                     href="/"

@@ -36,36 +36,36 @@ export function CreateNote() {
 
   return (
     <>
-    <button onClick={() => setIsOpen(true)} className="rounded-xl bg-amber-700 p-1.5 m-1 text-white cursor-pointer">Create Note</button>
+    <button onClick={() => setIsOpen(true)} className="rounded-xl bg-amber-700 hover:bg-amber-600 p-1.5 m-1 text-white cursor-pointer">Create Note</button>
 
     {isOpen && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50">
+        <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
           <h2 className="mb-4 text-lg font-semibold">Create Note</h2>
           <form onSubmit={handleCreateNote}>
             <div className="mb-4">
-              <label htmlFor="title" className="mb-2 block font-medium">
-                Title
+              <label htmlFor="title" className="mb-2 block font-bold">
+                Title:
               </label>
               <input
                 type="text"
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+                className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
                 required
                 placeholder="Enter note title"
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="mb-2 block font-medium">
-                Text
+              <label htmlFor="text" className="mb-2 block font-bold">
+                Text:
               </label>
               <textarea
                 id="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+                className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none resize-none"
                 placeholder="Enter note text..."
               />
             </div>
@@ -73,13 +73,13 @@ export function CreateNote() {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="rounded bg-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-400"
+                className="rounded px-4 py-2 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-200"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+                className="rounded-xl bg-amber-700 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 cursor-pointer"
               >
                 {loading ? 'Creating...' : 'Create'}
               </button>

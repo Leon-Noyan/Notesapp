@@ -13,7 +13,7 @@ export function ListFeature({ title, previewText, id }: ListFeatureProps) {
                 <h3 className="shrink-0 font-medium text-neutral-900 group-hover:text-amber-800">
                     {title}
                 </h3>
-                <p className="flex-1 truncate text-right text-sm text-neutral-500 ">
+                <p className="flex-1 truncate text-left text-sm text-neutral-500 ">
                     {previewText}
                 </p>
             </div>
