@@ -20,7 +20,7 @@ export async function GET(request: Request, { params }: Params) {
       { status: 200 }
     )
   } catch (error) {
-    console.error(error)
+    console.error('ERROR: Failed to fetch note', error)
     return NextResponse.json(
       { error: "Failed to fetch note" },
       { status: 500 }
@@ -51,7 +51,7 @@ export async function GET(request: Request, { params }: Params) {
             { status: 200 }
           )
         } catch (error) {
-        console.error(error)
+        console.error('ERROR: Failed to update note', error)
         return NextResponse.json(
           { error: "Failed to update note" },
           { status: 500 })
@@ -73,7 +73,7 @@ export async function DELETE(request: Request, { params }: Params) {
       { status: 200 }
     )
   } catch (error) {
-    console.error(error)
+    console.error('ERROR: Failed to delete note', error)
     return NextResponse.json(
       { error: "Failed to delete note" },
       { status: 500 }

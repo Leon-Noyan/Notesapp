@@ -19,12 +19,14 @@ if (!cached) {
         promise: null
     }
 }
+
 // connects to mongodb
+
+console.info('INFO: Connecting to MongoDB')
+
 export const connectDB = async () => {
     if (!MONGO_URI) {
-        throw new Error(
-            'Please define the MONGO_URI environment variable inside .env.local'
-        )
+        throw new Error('Please define the MONGO_URI environment variable inside .env.local')
     }
     // if connection already exists return it
     if (cached.conn) return cached.conn
@@ -34,11 +36,12 @@ export const connectDB = async () => {
     }
     try {
         cached.conn = await cached.promise
+        console.info('INFO: Connected to MongoDB')
         return cached.conn
     } catch (error) {
         // if connection fails, set promise to null
         cached.promise = null
-        console.error(error)
+        console.error('ERROR: Failed to connect to MongoDB', error)
         throw error
     }
-}
+} 

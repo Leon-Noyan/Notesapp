@@ -12,7 +12,7 @@ export async function GET() {
             { status: 200 }
         )
     } catch (error) {
-        console.error(error)
+        console.error('ERROR: Failed to fetch notes', error)
         return NextResponse.json(
             { error: 'Failed to fetch notes' },
             { status: 500 }
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
             { status: 201 }
         )
     } catch (error) {
-        console.error(error)
+        console.error('ERROR: Failed to create note', error)
         return NextResponse.json(
             { error: 'Failed to create note' },
             { status: 500 }
