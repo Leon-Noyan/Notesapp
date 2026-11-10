@@ -1,7 +1,7 @@
 import { connectDB } from '@/lib/mongodb'
 import Note from '@/models/Notes'
 import { CreateNote } from './components/CreateNote'
-import { ListFeature } from './components/List'
+import { ListFeature } from './components/NoteList'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,9 +13,9 @@ interface NoteItems {
 
 export default async function Home() {
     await connectDB()
-    const notesRaw = await Note.find().sort({ createdAt: -1 }).lean()
+    const notesData = await Note.find().sort({ createdAt: -1 }).lean()
 
-    const notes: NoteItems[] = notesRaw.map((note) => ({
+    const notes: NoteItems[] = notesData.map((note) => ({
         id: note._id.toString(),
         title: note.title,
         text: note.text || ''

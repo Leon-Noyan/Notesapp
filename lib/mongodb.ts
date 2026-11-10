@@ -26,7 +26,9 @@ console.info('INFO: Connecting to MongoDB')
 
 export const connectDB = async () => {
     if (!MONGO_URI) {
-        throw new Error('Please define the MONGO_URI environment variable inside .env.local')
+        throw new Error(
+            'Please define the MONGO_URI environment variable (in .env.local, or via container/hosting environment variables)'
+        )
     }
     // if connection already exists return it
     if (cached.conn) return cached.conn
@@ -44,4 +46,4 @@ export const connectDB = async () => {
         console.error('ERROR: Failed to connect to MongoDB', error)
         throw error
     }
-} 
+}

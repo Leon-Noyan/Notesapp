@@ -3,23 +3,6 @@ import { connectDB } from '@/lib/mongodb'
 import Note from '@/models/Notes'
 import { notesInputSchema } from '@/lib/notesSchema'
 
-export async function GET() {
-    try {
-        await connectDB()
-        const notes = await Note.find().sort({ createdAt: -1 })
-        return NextResponse.json(
-            { success: true, data: notes },
-            { status: 200 }
-        )
-    } catch (error) {
-        console.error('ERROR: Failed to fetch notes', error)
-        return NextResponse.json(
-            { error: 'Failed to fetch notes' },
-            { status: 500 }
-        )
-    }
-}
-
 export async function POST(request: Request) {
     try {
         await connectDB()
