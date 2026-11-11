@@ -83,7 +83,7 @@ export default function EditNote({
                             placeholder="Write whats on your mind..."
                             className="w-full bg-transparent border border-neutral-200 rounded-lg p-4 font-sans text-neutral-700 text-base leading-relaxed focus:outline-none focus:border-neutral-400 transition-colors placeholder:text-neutral-400 resize-y"
                             rows={4}
-                            maxLength={1000}
+                            maxLength={2000}
                         />
                     </div>
                     <div className="flex gap-2">
