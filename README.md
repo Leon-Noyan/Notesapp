@@ -2,12 +2,12 @@ Kort beskrivning av applikationen.
 
 ## App
 
-Detta är en enkel anteckningsapp, applikationen har två routes/ sidor där användaren kan skapa anteckningar, radera, uppdatera och läsa dem. Applikationen består alltså av en enkel CRUD.
+Applikationen är en enkel anteckningsapp byggd med Next.js, TypeScript och MongoDB. Appen har två sidor, en sida för anteckningslistan och en sida för den enskilda anteckningen. Applikationen ger användaren möjligheten att skapa, radera, uppdatera och läsa anteckningar. Applikationen består alltså av en enkel CRUD.
 
 ## Ramverk
 
 Val av ramverk och motivering.
-Applikationen använder sig av next.js. Ramverket valdes av olika anledningar dels då den har support för client och server-side rendering vilket gör det enkelt att arbeta med. Next.js ramverket låter även oss sätta upp ett fullstack projekt utan att behöva skapa en separat backend med exempelvis en express server. Detta gör uppsättningen och konfigurationen enklare och smidigare. Vi behöver dessutom endast driftsätta/ deploya en enda container.
+Applikationen använder sig av Next.js. Ramverket valdes av olika anledningar dels då den har support för client och server-side rendering vilket gör det enkelt att arbeta med. Next.js ramverket låter även oss sätta upp ett fullstack projekt utan att behöva skapa en separat backend med exempelvis en express server. Detta gör uppsättningen och konfigurationen enklare och smidigare. Vi behöver dessutom endast driftsätta/ deploya en enda container.
 
 ## Intrsuktioner lokalt
 
@@ -17,10 +17,12 @@ Vid start lokalt se till att köra:
 - git clone https://github.com/Leon-Noyan/Notesapp
 - cd Notesapp
 - npm install
-- konfigurera miljövariabel enligt .env.example MONGO_URI="mongodb+srv://<username>:<password>@cluster0.abcde.mongodb.net/<database_name>?retryWrites=true&w=majority"
+- Skapa .env.local för att konfigurera miljövariabel enligt .env.example MONGO_URI="mongodb+srv://<username>:<password>@cluster0.abcde.mongodb.net/<database_name>?retryWrites=true&w=majority"
 
-- npm run dev
+- Starta utvecklingsservern: npm run dev
 - Öppna http://localhost:3000
+
+Notera att projektet använder node.js version 26.
 
 ## Instruktioner Docker-container
 
@@ -58,7 +60,7 @@ Beskrivning av loggning och health check.
 Projektet använder loggning för att underlätta både övervakning och felsökning.
 
 - Start: instrumentation.ts loggar INFO: Server started vid uppstart.
-- Health Check: GET/ health returnerar status 'ok' för att visa att tjänsten körs. Med detta ser vi hur servern mår.
+- Health Check: GET/ health returnerar status 'ok'. Detta verkar som en enkel kontroll för att visa att appen svarar.
 - Databas & fel: mongodb.ts loggar anslutningstatusen med INFO: samt fel med ERROR vid anslutningsfel eller vid felaktiga miljövariabler.
 - Alla loggar visas även i Render under fliken Logs.
 
@@ -69,7 +71,7 @@ Länk till Health enpoint: https://notesapp-qrxr.onrender.com/health
 Beskrivning av GitHub Actions-workflowen.
 Trigger
 
-- Pipeline triggas igång automatiskt när kod pushas till main branchen
+- Pipeline triggas igång när kod pushas till main branchen
   Miljövariabler (env)
 - Github actions hämtar hemliga nycklar från Github repository secrets (`MONGO_URI` och `RENDER_DEPLOY_HOOK_URL`).
   Steps
@@ -78,7 +80,7 @@ Trigger
   Install dependencies: Hanterar nedladdning av projektets beroenden genom npm ci.
   Build Next.js application: Bygger själva next.js app för undvika kompliering och byggfel i koden.
   Build Docker image: Bygger en lokal docker image utifrån Dockerfile för att testa container.
-  Trigger Render Deploy Hook: När allt annat lyckats så skickas curl förfrågan till Render Deploy Hook-URL som uppdaterar live appen som ligger i Render. Skulle build misslyckas så kommer jobbet inte köras. Detta innebär att Hook stoppas och den föregående versionen ligger kvar.
+  Trigger Render Deploy Hook: När allt annat lyckats så skickas curl förfrågan till Render Deploy Hook-URL som uppdaterar live appen som ligger i Render. Skulle build misslyckas så kommer jobbet inte köras utan att Hook stoppas.
 
 ## Render-driftsättning
 
@@ -119,13 +121,7 @@ User[Användare] --> App
 
 Som tidigare nämt valdes Next.js som ramverk då den har support för både client och serverside rendering vilket gör den enklare att arbeta med samtidigt som den erbjuder god prestanda. Eftersom den kör både UI och API så behöver vi även endast driftsätta en container.
 
-MongoDB Atlas används som databas för projektet. Detta är ett mindre projekt med en enklare struktur. Därmed kändes den mer passande än en SQL databas då vi inte arbetar med komplexa relationer. Eftersom projektet använder MongoDB som databas behövs inte en databasprocess för containern. Anslutningen sker via MONGO*URI som miljövariabel och exponeras inte i webbläsaren alltså används inte NEXT_PUBLIC* för hemligheter.
-
-Vidare använder projektet en multi staged Docker med standalone Next.js. Detta gör att bygget delas upp i separata steg och kör node server i slutimagen. Vilket ger oss en mindre produktionsimage samt lägre användning av resurser inuti Render.
-
-Github Actions är också en stor del av projektet. Då den bygger både appen och Docker image. Notera att actions inte publiserar till Docker Hub utan Render sköter bygget från Dockerfile.
-
-Projektet deployas till Render som Docker web service och har auto deploy som off. Vilket gör att vi deployar manuellt. Vid misslyckat bygge stoppas dock processen och den gamla versionen fortsätter att köras.
+MongoDB Atlas används som databas för projektet. Detta är ett mindre projekt med en enklare struktur. Därmed kändes den mer passande än en SQL databas då vi inte arbetar med komplexa relationer. Eftersom projektet använder MongoDB som databas behövs inte en databasprocess för containern. Anslutningen sker via MONGO_URI som miljövariabel och exponeras inte i webbläsaren.
 
 ## Frågor & Svar
 
@@ -151,4 +147,4 @@ Den nuvarande driftlösningen orsakar att servern sover och endast startar vid b
 
 Vad skulle du behöva förändra om applikationen fick betydligt fler användare?
 
-Om applikationen fick fler användare skulle jag behöva uppgradera planen. Innan jag uppgraderar hade jag dock kikat i analytics/ monitorerat för att se vilken plan som hade passat bäst så att jag inte överskjuter. Utöver att uppgradera planen vilket klassas som att göra en vertikal scaling så hade jag även kunnat kika på horisontell scaling. Med horisontell scaling menar man att man kör serverinstanser eller containers parallelt vilket ska ge oss en obegränsad skalbarhet. Man hade exempelvis kunnat kika på load balancer för att fördela trafiken jämnt mellan noderna samt flytta trafiken från de noder som inte fungerar som de ska.
+Om applikationen fick fler användare skulle jag behöva uppgradera planen. Innan jag uppgraderar hade jag dock kikat i analytics/ monitorerat för att se vilken plan som hade passat bäst så att jag inte överskjuter. Utöver att uppgradera planen vilket klassas som att göra en vertikal scaling så hade jag även kunnat kika på horisontell scaling. Med horisontell scaling menar man att man kör serverinstanser eller containers parallelt. Man hade exempelvis kunnat kika på load balancer för att fördela trafiken jämnt mellan noderna samt flytta trafiken från de noder som inte fungerar som de ska.

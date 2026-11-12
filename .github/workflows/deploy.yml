@@ -1,41 +1,40 @@
 name: CI/CD Pipeline to Render
 
 on:
-    push:
-        branches: [main]
+  push:
+    branches: [main]
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-        env:
-            MONGO_URI: ${{ secrets.MONGO_URI }}
-            RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 26
-                  cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: "npm"
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Build Next.js application
-              run: npm run build
+      - name: Build Next.js application
+        run: npm run build
 
-            - name: Build Docker image
-              run: docker build -t notesapp .
+      - name: Build Docker image
+        run: docker build -t notesapp .
 
-            - name: Trigger Render Deploy Hook
-              if: success()
-              run: |
-                  if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
-                    echo "RENDER_DEPLOY_HOOK_URL is not set"
-                    exit 1
-                  fi
-                  curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+      - name: Trigger Render Deploy Hook
+        if: success()
+        run: |
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "RENDER_DEPLOY_HOOK_URL is not set"
+            exit 1
+          fi
+          curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
