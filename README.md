@@ -103,7 +103,7 @@ https://notesapp-qrxr.onrender.com/
 https://github.com/Leon-Noyan/Notesapp
 https://notesapp-qrxr.onrender.com/health
 
-## Arkitekturdiagram
+## Arkitekturdiagram & Tekniksa val
 
 ```mermaid
 flowchart LR
@@ -116,6 +116,16 @@ Render -->|bygger från Dockerfile| App[Next.js standalone]
 App --> Atlas[MongoDB Atlas]
 User[Användare] --> App
 ```
+
+Som tidigare nämt valdes Next.js som ramverk då den har support för både client och serverside rendering vilket gör den enklare att arbeta med samtidigt som den erbjuder god prestanda. Eftersom den kör både UI och API så behöver vi även endast driftsätta en container.
+
+MongoDB Atlas används som databas för projektet. Detta är ett mindre projekt med en enklare struktur. Därmed kändes den mer passande än en SQL databas då vi inte arbetar med komplexa relationer. Eftersom projektet använder MongoDB som databas behövs inte en databasprocess för containern. Anslutningen sker via MONGO*URI som miljövariabel och exponeras inte i webbläsaren alltså används inte NEXT_PUBLIC* för hemligheter.
+
+Vidare använder projektet en multi staged Docker med standalone Next.js. Detta gör att bygget delas upp i separata steg och kör node server i slutimagen. Vilket ger oss en mindre produktionsimage samt lägre användning av resurser inuti Render.
+
+Github Actions är också en stor del av projektet. Då den bygger både appen och Docker image. Notera att actions inte publiserar till Docker Hub utan Render sköter bygget från Dockerfile.
+
+Projektet deployas till Render som Docker web service och har auto deploy som off. Vilket gör att vi deployar manuellt. Vid misslyckat bygge stoppas dock processen och den gamla versionen fortsätter att köras.
 
 ## Frågor & Svar
 
