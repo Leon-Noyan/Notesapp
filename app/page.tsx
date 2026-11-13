@@ -6,9 +6,9 @@ import { ListFeature } from './components/NoteList'
 export const dynamic = 'force-dynamic'
 
 interface NoteItems {
-  id: string
-  title: string
-  text?: string
+    id: string
+    title: string
+    text?: string
 }
 
 export default async function Home() {
@@ -24,19 +24,19 @@ export default async function Home() {
     return (
         <main className="mx-auto max-w-4xl w-full px-8 py-16">
             <header className="mb-12 flex items-center justify-between border-b border-neutral-200/60 pb-6">
-              <div>
-                <h1 className="font-serif text-4xl text-neutral-900">
-                    Notes App
-                </h1>
+                <div>
+                    <h1 className="font-serif text-4xl text-neutral-900">
+                        NotesApp
+                    </h1>
 
-                <p className="text-sm text-neutral-500 mt-1">
-                    {notes.length} notes
-                </p>
-              </div>
+                    <p className="text-sm text-neutral-500 mt-1">
+                        {notes.length} notes
+                    </p>
+                </div>
 
-              <div className="flex items-center gap-4">
-                <CreateNote />
-              </div>
+                <div className="flex items-center gap-4">
+                    <CreateNote />
+                </div>
             </header>
 
             {/* List Container */}
@@ -52,7 +52,6 @@ export default async function Home() {
                             id={note.id}
                             title={note.title}
                             previewText={note.text || 'No content'}
-
                         />
                     ))}
                 </div>
