@@ -26,7 +26,7 @@ export default async function Home() {
             <header className="mb-12 flex items-center justify-between border-b border-neutral-200/60 pb-6">
                 <div>
                     <h1 className="font-serif text-4xl text-neutral-900">
-                        NotesApp
+                        Notes App
                     </h1>
 
                     <p className="text-sm text-neutral-500 mt-1">
